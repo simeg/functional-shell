@@ -22,8 +22,7 @@ function strip {
   local value=$1
   local res
 
-  res="$(sed -e 's/[[:space:]]*$//' <<<"${value}")"
-  echo "$res"
+  echo "$value" | xargs
 }
 
 function substr {
@@ -67,7 +66,7 @@ function prepend {
   local value=$1
   local prefix=$2
 
-  echo "$prefix$value"
+  printf "%s\n" "$prefix$value"
 }
 
 function capitalize {

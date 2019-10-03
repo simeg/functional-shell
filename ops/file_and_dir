@@ -12,20 +12,33 @@ function dirname {
   local full_path
   full_path=$(realpath "$input")
 
-  local oldifs=$IFS
+  local old_ifs=$IFS
   IFS='/'
 
-  read -r -a strarr <<< "$full_path"
-  local len="${#strarr[@]}"
+  read -r -a str_arr <<< "$full_path"
+  local len="${#str_arr[@]}"
   local idx=$((len - 2))
-  echo "${strarr["$idx"]}"
 
-  IFS=$oldifs
+  IFS=$old_ifs
+
+  echo "${str_arr["$idx"]}"
 }
 
 function basename {
   local input=$1
-  echo "$input"
+  local full_path
+  full_path=$(realpath "$input")
+
+  local old_ifs=$IFS
+  IFS='/'
+
+  read -r -a str_arr <<< "$full_path"
+  local len="${#str_arr[@]}"
+  local idx=$((len - 1))
+
+  IFS=$old_ifs
+
+  echo "${str_arr["$idx"]}"
 }
 
 function is_dir {

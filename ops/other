@@ -4,7 +4,7 @@ set -e
 
 function id {
   local value=$1
-  echo "$value"
+  printf "%s\n" "$value"
 }
 
 function identity {
