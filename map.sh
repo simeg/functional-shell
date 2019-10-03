@@ -7,25 +7,27 @@ source "./ops/arithmetic"
 source "./ops/file_and_dir"
 source "./ops/comparison"
 source "./ops/string"
+source "./ops/other"
 
 function map {
-  local FN=$1
+  local fn_arg="$1"
+  shift
+  local args="$@"
 
-  if [ "$(declare -f "$FN" > /dev/null; echo $?)" -gt 0 ]; then
-    echo "$FN" is not a valid function
+  if [ "$(declare -f "$fn_arg" > /dev/null; echo $?)" -gt 0 ]; then
+    echo "$fn_arg" is not a valid function
     exit 1
   fi
 
-  # Read piped input
+  # Change IFS to preserve whitespace in filenames
+  localoldIfs=$IFS
+  IFS=''
+
   while read -r LINE; do
-    if [ -n "$3" ]; then
-      eval "$FN" "$LINE" "$2" "$3"
-    elif [ -n "$2" ]; then
-      eval "$FN" "$LINE" "$2"
-    else
-      eval "$FN" "$LINE"
-    fi
+    eval "$fn_arg" "'$LINE'" "'$args'"
   done < /dev/stdin
+
+  IFS=$oldIfs
 }
 
 export -f map
