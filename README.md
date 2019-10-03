@@ -1,7 +1,43 @@
 # functional-shell
 Functional functions in your shell
 
-#### File and Directory operations ####
+# Examples
+
+```bash
+$ ls | map abspath
+/Users/simon/repos/functional-shell/README.md
+/Users/simon/repos/functional-shell/Makefile
+...
+```
+
+```bash
+$ ls | map abspath | map basename
+README.md
+Makefile
+...
+```
+
+```bash
+$ ls | map prepend 'file: '
+file: README.md
+file: Makefile
+...
+```
+
+```bash
+$ ls | filter is_file | map basename
+TODO
+...
+```
+
+```bash
+$ seq 3 | map add 100
+101
+102
+103
+```
+
+# File and Directory operations
 ```
 abspath             :: Path   → Path
 dirname             :: Path   → Path
@@ -16,11 +52,11 @@ strip_ext           :: Path   → String
 replace_ext new_ext :: Path   → Path
 split_ext           :: Path   → Array
 ```
-#### Logical operations ####
+### Logical operations
 ```
 non_empty           :: *      → Bool
 ```
-#### Arithmetic operations ####
+### Arithmetic operations
 ```
 add num             :: Int    → Int
 sub num             :: Int    → Int
@@ -29,7 +65,7 @@ even                :: Int    → Bool
 odd                 :: Int    → Bool
 pow num             :: Int    → Int
 ```
-#### Comparison operations ####
+### Comparison operations
 ```
 eq other            :: *      → Bool
 equal other         :: *      → Bool
@@ -46,7 +82,7 @@ less_equals i       :: Int    → Bool
 lt i                :: Int    → Bool
 less_than i         :: Int    → Bool
 ```
-#### String operations ####
+### String operations
 ```
 reverse             :: String → String
 append suffix       :: String → String
@@ -67,7 +103,7 @@ ends_with pattern   :: String → Bool
 len                 :: String → Int
 length              :: String → Int
 ```
-#### Other operations ####
+### Other operations
 ```
 id                  :: *      → *
 identity            :: *      → *
