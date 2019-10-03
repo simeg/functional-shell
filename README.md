@@ -1,4 +1,4 @@
-# functional-shell
+# functional-shell [![Build Status](https://travis-ci.org/simeg/functional-shell.svg)](https://travis-ci.org/simeg/functional-shell)
 Functional functions in your shell
 
 # Examples
