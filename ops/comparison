@@ -1,0 +1,98 @@
+#!/usr/bin/env bash
+
+set -e
+
+function eq {
+  local input=$1
+  local other=$2
+
+  if [ "$input" == "$other" ]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function equal {
+  eq "$1" "$2"
+}
+
+function ne {
+  local input=$1
+  local other=$2
+
+  if [ "$input" != "$other" ]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function not_eq {
+  ne "$1" "$2"
+}
+
+function not_equals {
+  ne "$1" "$2"
+}
+
+function ge {
+  local input=$1
+  local cmp_input=$2
+
+  if [ "$input" -ge "$cmp_input" ] 2>/dev/null; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function greater_equals {
+  ge "$1" "$2"
+}
+
+function gt {
+  local input=$1
+  local cmp_input=$2
+
+  if [ "$input" -gt "$cmp_input" ] 2>/dev/null; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function greater_than {
+  gt "$1" "$2"
+}
+
+function le {
+  local input=$1
+  local cmp_input=$2
+
+  if [ "$input" -le "$cmp_input" ] 2>/dev/null; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function less_equals {
+  le "$1" "$2"
+}
+
+function lt {
+  local input=$1
+  local cmp_input=$2
+
+  if [ "$input" -lt "$cmp_input" ] 2>/dev/null; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function less_than {
+  lt "$1" "$2"
+}
+

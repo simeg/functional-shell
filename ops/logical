@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+function non_empty {
+  local input=$1
+
+  local is_empty
+  is_empty=$(test -s "$input"; echo $?)
+
+  if [ "$is_empty" -eq 0 ]; then
+    echo "$input"
+  fi
+}
+

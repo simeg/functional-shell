@@ -1,0 +1,128 @@
+#!/usr/bin/env bash
+
+set -e
+
+function abspath {
+  local input=$1
+  realpath "$input"
+}
+
+function dirname {
+  local input=$1
+  local full_path
+  full_path=$(realpath "$input")
+
+  local oldifs=$IFS
+  IFS='/'
+
+  read -r -a strarr <<< "$full_path"
+  local len="${#strarr[@]}"
+  local idx=$((len - 2))
+  echo "${strarr["$idx"]}"
+
+  IFS=$oldifs
+}
+
+function basename {
+  local input=$1
+  echo "$input"
+}
+
+function is_dir {
+  local input=$1
+  if [ -d "$input" ]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function is_file {
+  local input=$1
+  if [ -f "$input" ]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function is_link {
+  local input=$1
+  if [ -L "$input" ]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function is_executable {
+  local input=$1
+  if [[ -f "$input" && -x "$input" ]]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function exists {
+  local input=$1
+  if [ -e "$input" ]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function has_ext {
+  local input=$1
+  local expected_ext=$2
+  local actual_ext=${input##*.}
+
+  local file_exists
+  file_exists=$(test -e "$input"; echo $?)
+  if [ "$file_exists" -gt 0 ]; then
+    echo false
+  else
+    local has_ext
+    has_ext=$(test "$input" != "$actual_ext"; echo $?)
+    local has_same_ext
+    has_same_ext=$(test "$actual_ext" == "$expected_ext"; echo $?)
+
+    if [ "$has_same_ext" -eq 0 ]; then
+      echo true
+    else
+      echo false
+    fi
+  fi
+}
+
+function strip_ext {
+  local input=$1
+  local file_without_ext=${input%.*}
+
+  echo "$file_without_ext"
+}
+
+function replace_ext {
+  local input=$1
+  local new_ext=$2
+  local file_without_ext=${input%.*}
+
+  echo "$file_without_ext"."$new_ext"
+}
+
+function split_ext {
+  local input=$1
+  local file_without_ext=${input%.*}
+  local ext="${input##*.}"
+
+  local has_ext
+  has_ext=$(test "$input" != "$ext"; echo $?)
+
+  if [ "$has_ext" -eq 0 ]; then
+    paste <(printf %s "$file_without_ext") <(printf %s "$EXT")
+  else
+    echo "$input"
+  fi
+}
+

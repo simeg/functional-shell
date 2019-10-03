@@ -1,0 +1,147 @@
+#!/usr/bin/env bash
+
+set -e
+
+function reverse {
+  local value=$1
+  local reversed
+
+  reversed=$(echo "$value" | rev)
+  echo "$reversed"
+}
+
+function append {
+  local value=$1
+  local suffix=$2
+  local res
+
+  echo "$value""$suffix"
+}
+
+function strip {
+  local value=$1
+  local res
+
+  res="$(sed -e 's/[[:space:]]*$//' <<<"${value}")"
+  echo "$res"
+}
+
+function substr {
+  local value=$1
+  local start=$2
+  local end=$3
+  local res
+
+  echo "${value:${start}:${end}}"
+}
+
+function take {
+  local value=$1
+  local count=$2
+  local res
+
+  echo "${value:0:${count}}"
+}
+
+function to_lower {
+  local value=$1
+
+  echo "$value" | tr '[:upper:]' '[:lower:]'
+}
+
+function to_upper {
+  local value=$1
+
+  echo "$value" | tr '[:lower:]' '[:upper:]'
+}
+
+function replace {
+  local value=$1
+  local old=$2
+  local new=$3
+
+  echo "${value/$old/$new}"
+}
+
+function prepend {
+  local value=$1
+  local prefix=$2
+
+  echo "$prefix$value"
+}
+
+function capitalize {
+  local value=$1
+
+  echo "$(tr '[:lower:]' '[:upper:]' <<< "${value:0:1}")${value:1}"
+}
+
+function drop {
+  local value=$1
+  local count=$2
+
+  echo "${value:count}"
+}
+
+function duplicate {
+  local value=$1
+  local res
+  res=("$value" "$value")
+
+  echo "${res[@]}"
+}
+
+function contains {
+  local value=$1
+  local needle=$2
+
+  if [[ $value == *"$needle"* ]]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function starts_with {
+  local value=$1
+  local pattern=$2
+
+  if [[ $value == "$pattern"* ]]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function ends_with {
+  local value=$1
+  local pattern=$2
+
+  if [[ $value == *"$pattern" ]]; then
+    echo true
+  else
+    echo false
+  fi
+}
+
+function len {
+  local value=$1
+
+  echo ${#value}
+}
+
+function length {
+  len "$1"
+}
+
+function split {
+  local value=$1
+  local delimiter=$2
+
+  IFS=$delimiter read -ra split_string <<< "$value"
+
+  for i in "${split_string[@]}"; do
+    echo "$i"
+  done
+}
+
