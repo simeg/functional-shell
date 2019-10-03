@@ -13,23 +13,32 @@ function reverse {
 function append {
   local value=$1
   local suffix=$2
-  local res
 
   echo "$value""$suffix"
 }
 
 function strip {
   local value=$1
-  local res
 
   echo "$value" | xargs
 }
 
 function substr {
   local value=$1
-  local start=$2
-  local end=$3
-  local res
+  local args=$2
+  local split_args start end
+
+  old_ifs=$IFS
+  IFS=' '
+
+  for arg in $args; do
+    split_args+=("$arg")
+  done
+
+  IFS=$old_ifs
+
+  start=${split_args[1]}
+  end=${split_args[2]}
 
   echo "${value:${start}:${end}}"
 }
@@ -37,7 +46,6 @@ function substr {
 function take {
   local value=$1
   local count=$2
-  local res
 
   echo "${value:0:${count}}"
 }
@@ -56,8 +64,20 @@ function to_upper {
 
 function replace {
   local value=$1
-  local old=$2
-  local new=$3
+  local args=$2
+  local old_ifs split_args old new
+
+  old_ifs=$IFS
+  IFS=' '
+
+  for arg in $args; do
+    split_args+=("$arg")
+  done
+
+  IFS=$old_ifs
+
+  old=${split_args[1]}
+  new=${split_args[2]}
 
   echo "${value/$old/$new}"
 }
