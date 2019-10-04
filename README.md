@@ -30,8 +30,14 @@ file: Makefile
 ```
 
 ```bash
-$ ls | filter is_file | map basename
-TODO
+$ ls | filter contains md
+README.md
+...
+```
+
+```bash
+$ ls | filter contains md | map abspath
+/Users/simon/repos/functional-shell/README.md
 ...
 ```
 
