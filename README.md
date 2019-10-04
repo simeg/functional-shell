@@ -12,33 +12,28 @@ Tested with Bash 3 and 4.
 $ ls | map abspath
 /Users/simon/repos/functional-shell/README.md
 /Users/simon/repos/functional-shell/Makefile
-...
 ```
 
 ```bash
 $ ls | map abspath | map basename
 README.md
 Makefile
-...
 ```
 
 ```bash
 $ ls | map prepend 'file: '
 file: README.md
 file: Makefile
-...
 ```
 
 ```bash
 $ ls | filter contains md
 README.md
-...
 ```
 
 ```bash
 $ ls | filter contains md | map abspath
 /Users/simon/repos/functional-shell/README.md
-...
 ```
 
 ```bash
