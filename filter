@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+set -e
+
+# Load functions
+source "./ops/arithmetic"
+source "./ops/file_and_dir"
+source "./ops/comparison"
+source "./ops/string"
+source "./ops/other"
+
+function filter {
+  # TODO
+  true
+}
+
+export -f filter
+

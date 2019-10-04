@@ -7,4 +7,4 @@ addons:
     packages:
     - bats
     - bc
-script: make test
+script: make lint test
