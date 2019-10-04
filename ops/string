@@ -38,7 +38,7 @@ function substr {
   IFS=$old_ifs
 
   start=${split_args[1]}
-  end=${split_args[2]}
+  end=$((${split_args[2]} + 1))
 
   echo "${value:${start}:${end}}"
 }
