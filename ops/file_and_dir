@@ -133,7 +133,7 @@ function split_ext {
   has_ext=$(test "$input" != "$ext"; echo $?)
 
   if [ "$has_ext" -eq 0 ]; then
-    paste <(printf %s "$file_without_ext") <(printf %s "$EXT")
+    printf %s%s%s "$file_without_ext" " " "$ext"
   else
     echo "$input"
   fi
