@@ -1,5 +1,10 @@
 # functional-shell [![Build Status](https://travis-ci.org/simeg/functional-shell.svg)](https://travis-ci.org/simeg/functional-shell)
-Functional functions in your shell
+
+Use `map` and `filter` in your shell.
+
+*This tool was written for learning and is not optimized for speed or compatibility.*
+
+Tested with Bash 3 and 4.
 
 # Examples
 
@@ -37,7 +42,9 @@ $ seq 3 | map add 100
 103
 ```
 
-# File and Directory operations
+# Operations
+
+### File and Directory operations
 ```
 abspath             :: Path   → Path
 dirname             :: Path   → Path
