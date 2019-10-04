@@ -31,14 +31,16 @@ function substr {
   old_ifs=$IFS
   IFS=' '
 
+  local i=0
   for arg in $args; do
-    split_args+=("$arg")
+    split_args[$i]="$arg"
+    i=$(($i + 1))
   done
 
   IFS=$old_ifs
 
-  start=${split_args[1]}
-  end=$((${split_args[2]} + 1))
+  start=${split_args[0]}
+  end=$((${split_args[1]} + 1))
 
   echo "${value:${start}:${end}}"
 }
@@ -70,14 +72,16 @@ function replace {
   old_ifs=$IFS
   IFS=' '
 
+  local i=0
   for arg in $args; do
-    split_args+=("$arg")
+    split_args[$i]="$arg"
+    i=$(($i + 1))
   done
 
   IFS=$old_ifs
 
-  old=${split_args[1]}
-  new=${split_args[2]}
+  old=${split_args[0]}
+  new=${split_args[1]}
 
   echo "${value/$old/$new}"
 }
