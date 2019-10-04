@@ -15,7 +15,7 @@ function map {
   local args="$*"
 
   if [ "$(declare -f "$fn_arg" > /dev/null; echo $?)" -gt 0 ]; then
-    echo "$fn_arg" is not a valid function
+    echo "$fn_arg" is not a valid function for map
     exit 1
   fi
 
@@ -23,8 +23,8 @@ function map {
   local old_ifs=$IFS
   IFS=''
 
-  while read -r LINE; do
-    eval "$fn_arg" "'$LINE'" "'$args'"
+  while read -r line; do
+    eval "$fn_arg" "'$line'" "'$args'"
   done < /dev/stdin
 
   IFS=$old_ifs
