@@ -8,10 +8,71 @@ source "./ops/file_and_dir"
 source "./ops/comparison"
 source "./ops/string"
 source "./ops/other"
+source "./ops/logical"
+
+readonly allowed_fns=(
+  # arithmetic
+  even
+  odd
+
+  # comparison
+  eq
+  equal
+  ne
+  not_eq
+  not_equals
+  ge
+  greater_equals
+  gt
+  greater_than
+  le
+  less_equals
+  lt
+  less_than
+
+  # file_and_dir
+  is_dir
+  is_link
+  is_executable
+  exists
+  has_ext
+
+  # logical
+  non_empty
+
+  # other
+  id
+  identity
+
+  # string
+  contains
+  starts_with
+  ends_with
+)
 
 function filter {
-  # TODO
-  true
+  local fn_arg="$1"
+  shift
+  local args="$*"
+
+  if [[ ! "${allowed_fns[*]}" == *"${fn_arg}"* ]]; then
+    echo "$fn_arg" is not a valid function for filter
+    exit 1
+  fi
+
+  # Change IFS to preserve whitespace in filenames
+  local old_ifs=$IFS
+  IFS=''
+
+  local res
+  while read -r line; do
+    res=$(eval "$fn_arg" "'$line'" "'$args'")
+    if [ "$res" == "true" ]; then
+      echo "$line"
+    fi
+  done < /dev/stdin
+
+  IFS=$old_ifs
 }
 
 export -f filter
