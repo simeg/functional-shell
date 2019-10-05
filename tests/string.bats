@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "./map"
+source "./functions/map"
 source "./operations/string"
 
 @test "string: map reverse" {

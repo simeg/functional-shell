@@ -9,8 +9,7 @@ format:
 
 lint:
 	shellcheck operations/*
-	shellcheck -x map
-	shellcheck -x filter
+	shellcheck -x functions/*
 
 test:
 	bats tests/
