@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "./map"
+source "./functions/map"
 source "./operations/comparison"
 
 @test "comparison: map eq [string]" {

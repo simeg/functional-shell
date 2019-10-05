@@ -3,12 +3,12 @@
 set -e
 
 # Load functions
-source "./ops/arithmetic"
-source "./ops/file_and_dir"
-source "./ops/comparison"
-source "./ops/string"
-source "./ops/other"
-source "./ops/logical"
+source "./operations/arithmetic"
+source "./operations/file_and_dir"
+source "./operations/comparison"
+source "./operations/string"
+source "./operations/other"
+source "./operations/logical"
 
 readonly allowed_fns=(
   # arithmetic

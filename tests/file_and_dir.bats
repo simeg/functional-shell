@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "./map"
+source "./functions/map"
 source "./operations/file_and_dir"
 
 readonly res="tests/resources"

@@ -3,11 +3,11 @@
 set -e
 
 # Load functions
-source "./ops/arithmetic"
-source "./ops/file_and_dir"
-source "./ops/comparison"
-source "./ops/string"
-source "./ops/other"
+source "./operations/arithmetic"
+source "./operations/file_and_dir"
+source "./operations/comparison"
+source "./operations/string"
+source "./operations/other"
 
 function map {
   local fn_arg="$1"
