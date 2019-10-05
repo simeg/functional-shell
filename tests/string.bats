@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source "./map"
-source "./ops/string"
+source "./operations/string"
 
 @test "string: map reverse" {
   actual="$(printf '%s\n' hello_world | map reverse)"
