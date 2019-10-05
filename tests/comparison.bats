@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source "./map"
-source "./ops/comparison"
+source "./operations/comparison"
 
 @test "comparison: map eq [string]" {
   actual="$(printf '%s\n' file1 file2 | map eq file1)"

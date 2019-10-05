@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source "./map"
-source "./ops/arithmetic"
+source "./operations/arithmetic"
 
 @test "arithmetic: map add" {
   actual="$(printf '%s\n' 1 2 | map add 1)"

@@ -1,7 +1,7 @@
 #!/usr/bin/env bats
 
 source "./map"
-source "./ops/logical"
+source "./operations/logical"
 
 readonly res="tests/resources"
 readonly empty_file="$res/empty_file"
