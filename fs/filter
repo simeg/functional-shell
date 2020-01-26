@@ -2,6 +2,7 @@
 
 set -e
 
+# shellcheck disable=SC1091
 source "fs/functions/_filter"
 
 _filter "$@"
