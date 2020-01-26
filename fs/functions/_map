@@ -9,7 +9,7 @@ source "fs/operations/comparison"
 source "fs/operations/string"
 source "fs/operations/other"
 
-function map {
+function _map {
   local fn_arg="$1"
   shift
   local args="$*"
@@ -23,8 +23,6 @@ function map {
   local old_ifs=$IFS
   IFS=''
 
-  echo 2
-
   while read -r line; do
     eval "$fn_arg" "'$line'" "'$args'"
   done < /dev/stdin
@@ -32,4 +30,4 @@ function map {
   IFS=$old_ifs
 }
 
-export -f map
+export -f _map

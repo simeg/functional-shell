@@ -50,7 +50,7 @@ readonly allowed_fns=(
   ends_with
 )
 
-function filter {
+function _filter {
   local fn_arg="$1"
   shift
   local args="$*"
@@ -75,5 +75,4 @@ function filter {
   IFS=$old_ifs
 }
 
-export -f filter
-
+export -f _filter
