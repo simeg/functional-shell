@@ -3,11 +3,11 @@
 set -e
 
 # Load functions
-source "./operations/arithmetic"
-source "./operations/file_and_dir"
-source "./operations/comparison"
-source "./operations/string"
-source "./operations/other"
+source "fs/operations/arithmetic"
+source "fs/operations/file_and_dir"
+source "fs/operations/comparison"
+source "fs/operations/string"
+source "fs/operations/other"
 
 function map {
   local fn_arg="$1"
@@ -22,6 +22,8 @@ function map {
   # Change IFS to preserve whitespace in filenames
   local old_ifs=$IFS
   IFS=''
+
+  echo 2
 
   while read -r line; do
     eval "$fn_arg" "'$line'" "'$args'"
