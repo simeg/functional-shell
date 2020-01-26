@@ -10,9 +10,9 @@ format:
 	shellcheck -x -f diff fs/filter | git apply
 
 install-bats:
-	git clone https://github.com/bats-core/bats-core.git /tmp/ && \
+	git clone https://github.com/bats-core/bats-core.git /tmp/bats-core && \
 		cd /tmp/bats-core && \
-		./install.sh /usr/local
+		sudo ./install.sh /usr/local
 
 lint:
 	shellcheck -x fs/map
