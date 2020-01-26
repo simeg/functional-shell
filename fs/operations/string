@@ -168,3 +168,4 @@ function split {
   done
 }
 
+export -f append
