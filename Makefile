@@ -6,8 +6,8 @@ fmt: format
 
 format:
 	shellcheck -x -f diff fs/operations/* | git apply
-	shellcheck -x -f diff fs/map | git apply
-	shellcheck -x -f diff fs/filter | git apply
+	shellcheck -x -f diff map | git apply
+	shellcheck -x -f diff filter | git apply
 
 install:
 	./install.sh
@@ -18,8 +18,8 @@ install-bats:
 		sudo ./install.sh /usr/local
 
 lint:
-	shellcheck -x fs/map
-	shellcheck -x fs/filter
+	shellcheck -x map
+	shellcheck -x filter
 	shellcheck -x fs/operations/*
 	shellcheck -x fs/functions/*
 
