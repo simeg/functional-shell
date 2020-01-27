@@ -35,4 +35,4 @@ lint:
 	shellcheck -x fs/functions/*
 
 test:
-	bats -j 10 tests/
+	bats -j 15 tests/
