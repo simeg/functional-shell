@@ -5,7 +5,7 @@ Use `map` and `filter` in your shell.
 *This tool was written for learning and is not optimized for speed or
 compatibility.*
 
-Tested with Bash 3 and 4.
+Tested with Bash 3, 4 and 5.
 
 # Examples
 
