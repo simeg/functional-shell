@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+source "/usr/local/lib/fs/functions/_filter"
+
+_filter "$@"

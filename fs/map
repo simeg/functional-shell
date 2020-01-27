@@ -1,8 +1,0 @@
-#!/usr/bin/env bash
-
-set -eo pipefail
-
-# shellcheck disable=SC1091
-source "fs/functions/_map"
-
-_map "$@"

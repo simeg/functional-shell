@@ -9,6 +9,9 @@ format:
 	shellcheck -x -f diff fs/map | git apply
 	shellcheck -x -f diff fs/filter | git apply
 
+install:
+	./install.sh
+
 install-bats:
 	git clone https://github.com/bats-core/bats-core.git /tmp/bats-core && \
 		cd /tmp/bats-core && \
