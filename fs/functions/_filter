@@ -25,6 +25,7 @@ readonly allowed_fns=(
   # file_and_dir
   is_dir
   is_link
+  is_file
   is_executable
   exists
   has_ext
