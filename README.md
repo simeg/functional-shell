@@ -2,7 +2,8 @@
 
 Use `map` and `filter` in your shell.
 
-*This tool was written for learning and is not optimized for speed or compatibility.*
+*This tool was written for learning and is not optimized for speed or
+compatibility.*
 
 Tested with Bash 3 and 4.
 
@@ -41,6 +42,15 @@ $ seq 3 | map add 100
 101
 102
 103
+```
+
+# Installation
+
+Run the `install.sh` to clone the repo and move the files to `/usr/local/lib`
+and `/usr/local/bin`.
+
+```bash
+$ /bin/bash <(curl -s https://raw.githubusercontent.com/simeg/functional-shell/master/install.sh)
 ```
 
 # Operations
