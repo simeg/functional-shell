@@ -2,13 +2,6 @@
 
 set -e
 
-# Load functions
-source "fs/operations/arithmetic"
-source "fs/operations/file_and_dir"
-source "fs/operations/comparison"
-source "fs/operations/string"
-source "fs/operations/other"
-
 function _map {
   local fn_arg="$1"
   shift

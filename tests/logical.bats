@@ -1,7 +1,6 @@
 #!/usr/bin/env bats
 
-source "fs/functions/_map"
-source "fs/operations/logical"
+load "fixture"
 
 readonly res="tests/resources"
 readonly empty_file="$res/empty_file"

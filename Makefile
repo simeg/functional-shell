@@ -17,10 +17,16 @@ format:
 install:
 	./install.sh
 
+
 install-bats:
 	git clone https://github.com/bats-core/bats-core.git /tmp/bats-core && \
 		cd /tmp/bats-core && \
 		sudo ./install.sh /usr/local
+
+local-install:
+	cp -f ./map /usr/local/bin/
+	cp -f ./filter /usr/local/bin/
+	cp -rf ./fs /usr/local/lib/
 
 lint:
 	shellcheck -x map

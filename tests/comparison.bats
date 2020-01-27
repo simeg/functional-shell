@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "fs/functions/_map"
+load "fixture"
 
 @test "comparison: map eq [string]" {
   actual="$(printf '%s\n' file1 file2 | _map eq file1)"

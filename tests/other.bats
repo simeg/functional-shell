@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "fs/functions/_map"
+load "fixture"
 
 @test "other: map id" {
   actual="$(printf '%s\n' 1 2 | _map id)"

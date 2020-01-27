@@ -5,4 +5,10 @@ set -eo pipefail
 # shellcheck disable=SC1091
 source "/usr/local/lib/fs/functions/_filter"
 
+source "/usr/local/lib/fs/operations/arithmetic"
+source "/usr/local/lib/fs/operations/file_and_dir"
+source "/usr/local/lib/fs/operations/comparison"
+source "/usr/local/lib/fs/operations/string"
+source "/usr/local/lib/fs/operations/other"
+
 _filter "$@"

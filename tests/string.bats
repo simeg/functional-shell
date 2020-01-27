@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "fs/functions/_map"
+load "fixture"
 
 @test "string: map reverse" {
   actual="$(printf '%s\n' hello_world | _map reverse)"

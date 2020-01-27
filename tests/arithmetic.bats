@@ -1,6 +1,6 @@
 #!/usr/bin/env bats
 
-source "fs/functions/_map"
+load "fixture"
 
 @test "arithmetic: map add" {
   actual="$(printf '%s\n' 1 2 | _map add 1)"

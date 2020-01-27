@@ -2,14 +2,6 @@
 
 set -e
 
-# Load functions
-source "fs/operations/arithmetic"
-source "fs/operations/file_and_dir"
-source "fs/operations/comparison"
-source "fs/operations/string"
-source "fs/operations/other"
-source "fs/operations/logical"
-
 readonly allowed_fns=(
   # arithmetic
   even
