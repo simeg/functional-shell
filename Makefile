@@ -29,8 +29,8 @@ local-install:
 	cp -rf ./fs /usr/local/lib/
 
 lint:
-	shellcheck -x map
-	shellcheck -x filter
+	shellcheck -x -e SC1091 map
+	shellcheck -x -e SC1091 filter
 	shellcheck -x fs/operations/*
 	shellcheck -x fs/functions/*
 

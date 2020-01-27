@@ -2,7 +2,6 @@
 
 set -eo pipefail
 
-# shellcheck disable=SC1091
 source "/usr/local/lib/fs/functions/_filter"
 
 source "/usr/local/lib/fs/operations/arithmetic"
