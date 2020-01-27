@@ -1,5 +1,10 @@
 .PHONY: fmt format lint test
 
+clean:
+	rm /usr/local/bin/map
+	rm /usr/local/bin/filter
+	rm -rf /usr/local/lib/fs
+
 ci: lint install-bats test
 
 fmt: format
