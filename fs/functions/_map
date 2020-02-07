@@ -12,6 +12,11 @@ function _map {
     exit 1
   fi
 
+  # If empty input exit with 1
+  if test -t 0; then
+    exit 1
+  fi
+
   # Change IFS to preserve whitespace in filenames
   local old_ifs=$IFS
   IFS=''
