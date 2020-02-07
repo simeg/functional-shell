@@ -1,11 +1,13 @@
 .PHONY: fmt format lint test
 
+### Bash
+
 clean:
 	rm /usr/local/bin/map
 	rm /usr/local/bin/filter
 	rm -rf /usr/local/lib/fs
 
-ci: lint install-bats test
+ci-bash: lint install-bats test
 
 fmt: format
 
@@ -16,9 +18,6 @@ format:
 
 install:
 	./install.sh
-
-integration-tests:
-	pytest -s tests/integration-tests/tests.py
 
 install-bats:
 	git clone https://github.com/bats-core/bats-core.git /tmp/bats-core && \
@@ -38,3 +37,19 @@ lint:
 
 test:
 	bats -j 15 tests/
+
+
+### Python
+
+ci-py: install-py-deps local-install-travis it-test
+
+install-py-deps:
+	pip install -r tests/integration-tests/requirements.txt
+
+it-test:
+	pytest -s tests/integration-tests/tests.py
+
+local-install-travis:
+	sudo cp -f ./map /usr/local/bin/
+	sudo cp -f ./filter /usr/local/bin/
+	sudo cp -rf ./fs /usr/local/lib/
