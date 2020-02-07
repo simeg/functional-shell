@@ -113,6 +113,6 @@ readonly extension="$res/extension.md"
 
 @test "file_and_dir: map split_ext" {
   actual="$(printf '%s\n' $extension | _map split_ext)"
-  expected="$(printf '%s\n' 'tests/resources/extension md')"
+  expected="$(printf '%s\t%s\n' 'tests/resources/extension' 'md')"
   [ "$actual" == "$expected" ]
 }

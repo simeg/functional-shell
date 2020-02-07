@@ -5,42 +5,42 @@ set -e
 function add {
   local input=$1
   local val=$2
-  echo $((input + val))
+  printf "%s\n" $((input + val))
 }
 
 function sub {
   local input=$1
   local val=$2
-  echo $((input - val))
+  printf "%s\n" $((input - val))
 }
 
 function mul {
   local input=$1
   local val=$2
-  echo $((input * val))
+  printf "%s\n" $((input * val))
 }
 
 function pow {
   local input=$1
   local val=$2
-  echo $((input ** val))
+  printf "%s\n" $((input ** val))
 }
 
 function even {
   local input=$1
   if ! (( input % 2 )); then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
 function odd {
   local input=$1
   if (( input % 2 )); then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 

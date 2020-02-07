@@ -9,7 +9,7 @@ function non_empty {
   is_empty=$(test -s "$input"; echo $?)
 
   if [ "$is_empty" -eq 0 ]; then
-    echo true
+    printf "%s\n" true
   fi
 }
 

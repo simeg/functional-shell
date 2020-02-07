@@ -49,7 +49,7 @@ function _filter {
   local args="$*"
 
   if [[ ! "${allowed_fns[*]}" == *"${fn_arg}"* ]]; then
-    echo "$fn_arg" is not a valid function for filter >&2
+    printf "%s %s\n" "$fn_arg" "is not a valid function for filter" >&2
     exit 1
   fi
 
@@ -61,7 +61,7 @@ function _filter {
   while read -r line; do
     res=$(eval "$fn_arg" "'$line'" "'$args'")
     if [ "$res" == "true" ]; then
-      echo "$line"
+      printf "%s\n" "$line"
     fi
   done < /dev/stdin
 

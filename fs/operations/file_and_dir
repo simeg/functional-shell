@@ -21,7 +21,7 @@ function dirname {
 
   IFS=$old_ifs
 
-  echo "${str_arr["$idx"]}"
+  printf "%s\n" "${str_arr["$idx"]}"
 }
 
 function basename {
@@ -38,51 +38,51 @@ function basename {
 
   IFS=$old_ifs
 
-  echo "${str_arr["$idx"]}"
+  printf "%s\n" "${str_arr["$idx"]}"
 }
 
 function is_dir {
   local input=$1
   if [ -d "$input" ]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
 function is_file {
   local input=$1
   if [ -f "$input" ]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
 function is_link {
   local input=$1
   if [ -L "$input" ]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
 function is_executable {
   local input=$1
   if [[ -f "$input" && -x "$input" ]]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
 function exists {
   local input=$1
   if [ -e "$input" ]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -94,7 +94,7 @@ function has_ext {
   local file_exists
   file_exists=$(test -e "$input"; echo $?)
   if [ "$file_exists" -gt 0 ]; then
-    echo false
+    printf "%s\n" false
   else
     local has_ext
     has_ext=$(test "$input" != "$actual_ext"; echo $?)
@@ -102,9 +102,9 @@ function has_ext {
     has_same_ext=$(test "$actual_ext" == "$expected_ext"; echo $?)
 
     if [ "$has_same_ext" -eq 0 ]; then
-      echo true
+      printf "%s\n" true
     else
-      echo false
+      printf "%s\n" false
     fi
   fi
 }
@@ -113,7 +113,7 @@ function strip_ext {
   local input=$1
   local file_without_ext=${input%.*}
 
-  echo "$file_without_ext"
+  printf "%s\n" "$file_without_ext"
 }
 
 function replace_ext {
@@ -121,7 +121,7 @@ function replace_ext {
   local new_ext=$2
   local file_without_ext=${input%.*}
 
-  echo "$file_without_ext"."$new_ext"
+  printf "%s\n" "$file_without_ext"."$new_ext"
 }
 
 function split_ext {
@@ -133,9 +133,9 @@ function split_ext {
   has_ext=$(test "$input" != "$ext"; echo $?)
 
   if [ "$has_ext" -eq 0 ]; then
-    printf %s%s%s "$file_without_ext" " " "$ext"
+    printf "%s\t%s\n" "$file_without_ext" "$ext"
   else
-    echo "$input"
+    printf "%s\n" "$input"
   fi
 }
 
