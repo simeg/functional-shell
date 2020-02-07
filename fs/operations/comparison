@@ -7,9 +7,9 @@ function eq {
   local other=$2
 
   if [ "$input" == "$other" ]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -22,9 +22,9 @@ function ne {
   local other=$2
 
   if [ "$input" != "$other" ]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -41,9 +41,9 @@ function ge {
   local cmp_input=$2
 
   if [ "$input" -ge "$cmp_input" ] 2>/dev/null; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -56,9 +56,9 @@ function gt {
   local cmp_input=$2
 
   if [ "$input" -gt "$cmp_input" ] 2>/dev/null; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -71,9 +71,9 @@ function le {
   local cmp_input=$2
 
   if [ "$input" -le "$cmp_input" ] 2>/dev/null; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -86,9 +86,9 @@ function lt {
   local cmp_input=$2
 
   if [ "$input" -lt "$cmp_input" ] 2>/dev/null; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 

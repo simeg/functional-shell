@@ -6,21 +6,21 @@ function reverse {
   local value=$1
   local reversed
 
-  reversed=$(echo "$value" | rev)
-  echo "$reversed"
+  reversed=$(printf "%s\n" "$value" | rev)
+  printf "%s\n" "$reversed"
 }
 
 function append {
   local value=$1
   local suffix=$2
 
-  echo "$value""$suffix"
+  printf "%s\n" "$value""$suffix"
 }
 
 function strip {
   local value=$1
 
-  echo "$value" | xargs
+  printf "%s\n" "$value" | xargs
 }
 
 function substr {
@@ -42,26 +42,26 @@ function substr {
   start=${split_args[0]}
   end=$((split_args[1] + 1))
 
-  echo "${value:${start}:${end}}"
+  printf "%s\n" "${value:${start}:${end}}"
 }
 
 function take {
   local value=$1
   local count=$2
 
-  echo "${value:0:${count}}"
+  printf "%s\n" "${value:0:${count}}"
 }
 
 function to_lower {
   local value=$1
 
-  echo "$value" | tr '[:upper:]' '[:lower:]'
+  printf "%s\n" "$value" | tr '[:upper:]' '[:lower:]'
 }
 
 function to_upper {
   local value=$1
 
-  echo "$value" | tr '[:lower:]' '[:upper:]'
+  printf "%s\n" "$value" | tr '[:lower:]' '[:upper:]'
 }
 
 function replace {
@@ -83,7 +83,7 @@ function replace {
   old=${split_args[0]}
   new=${split_args[1]}
 
-  echo "${value/$old/$new}"
+  printf "%s\n" "${value/$old/$new}"
 }
 
 function prepend {
@@ -96,22 +96,20 @@ function prepend {
 function capitalize {
   local value=$1
 
-  echo "$(tr '[:lower:]' '[:upper:]' <<< "${value:0:1}")${value:1}"
+  printf "%s\n" "$(tr '[:lower:]' '[:upper:]' <<< "${value:0:1}")${value:1}"
 }
 
 function drop {
   local value=$1
   local count=$2
 
-  echo "${value:count}"
+  printf "%s\n" "${value:count}"
 }
 
 function duplicate {
   local value=$1
-  local res
-  res=("$value" "$value")
 
-  echo "${res[@]}"
+  printf "%s %s\n" "$value" "$value"
 }
 
 function contains {
@@ -119,9 +117,9 @@ function contains {
   local needle=$2
 
   if [[ $value == *"$needle"* ]]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -130,9 +128,9 @@ function starts_with {
   local pattern=$2
 
   if [[ $value == "$pattern"* ]]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
@@ -141,16 +139,16 @@ function ends_with {
   local pattern=$2
 
   if [[ $value == *"$pattern" ]]; then
-    echo true
+    printf "%s\n" true
   else
-    echo false
+    printf "%s\n" false
   fi
 }
 
 function len {
   local value=$1
 
-  echo ${#value}
+  printf "%s\n" ${#value}
 }
 
 function length {
@@ -164,7 +162,7 @@ function split {
   IFS=$delimiter read -ra split_string <<< "$value"
 
   for i in "${split_string[@]}"; do
-    echo "$i"
+    printf "%s\n" "$i"
   done
 }
 
