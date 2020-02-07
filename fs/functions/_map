@@ -8,7 +8,7 @@ function _map {
   local args="$*"
 
   if [ "$(declare -f "$fn_arg" > /dev/null; echo $?)" -gt 0 ]; then
-    echo "$fn_arg" is not a valid function for map
+    echo "$fn_arg" is not a valid function for map >&2
     exit 1
   fi
 
