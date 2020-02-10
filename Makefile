@@ -25,9 +25,9 @@ install-bats:
 		sudo ./install.sh /usr/local
 
 local-install:
-	cp -f ./map /usr/local/bin/
-	cp -f ./filter /usr/local/bin/
-	cp -rf ./fs /usr/local/lib/
+	@cp -f ./map /usr/local/bin/
+	@cp -f ./filter /usr/local/bin/
+	@cp -rf ./fs /usr/local/lib/
 
 lint:
 	shellcheck -x -e SC1091 map

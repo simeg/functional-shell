@@ -10,30 +10,34 @@ Tested with Bash 3, 4 and 5.
 # Examples
 
 ```bash
-$ ls | map abspath
+$ find .
+./README.md
+./Makefile
+
+$ find . | map abspath
 /Users/simon/repos/functional-shell/README.md
 /Users/simon/repos/functional-shell/Makefile
 ```
 
 ```bash
-$ ls | map abspath | map basename
+$ find . | map abspath | map basename
 README.md
 Makefile
 ```
 
 ```bash
-$ ls | map prepend 'file: '
-file: README.md
-file: Makefile
+$ find . | map prepend 'file: '
+file: ./README.md
+file: ./Makefile
 ```
 
 ```bash
-$ ls | filter contains md
-README.md
+$ find . | filter contains md
+./README.md
 ```
 
 ```bash
-$ ls | filter contains md | map abspath
+$ find . | filter contains md | map abspath
 /Users/simon/repos/functional-shell/README.md
 ```
 
