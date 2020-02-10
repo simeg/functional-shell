@@ -8,6 +8,6 @@ source "/usr/local/lib/fs/operations/arithmetic"
 source "/usr/local/lib/fs/operations/file_and_dir"
 source "/usr/local/lib/fs/operations/comparison"
 source "/usr/local/lib/fs/operations/string"
-source "/usr/local/lib/fs/operations/other"
+source "/usr/local/lib/fs/operations/logical"
 
 _filter "$@"

@@ -20,7 +20,6 @@ load "fixture"
   [ "$actual" == "$expected" ]
 }
 
-# TODO: Starting from here to bottom
 @test "string: map substr" {
   actual="$(printf '%s\n' hello_world | _map substr 0 5)"
   expected="$(printf '%s\n' hello_)"
@@ -114,5 +113,41 @@ load "fixture"
 @test "string: map len" {
   actual="$(printf '%s\n' hello_world | _map len)"
   expected="$(printf '%s\n' 11)"
+  [ "$actual" == "$expected" ]
+}
+
+@test "string: filter contains [true]" {
+  actual="$(printf '%s\n' hello_world | _filter contains hell)"
+  expected="$(printf '%s\n' 'hello_world')"
+  [ "$actual" == "$expected" ]
+}
+
+@test "string: filter contains [false]" {
+  actual="$(printf '%s\n' hello_world | _filter contains nope)"
+  expected="$(printf '%s\n' '')"
+  [ "$actual" == "$expected" ]
+}
+
+@test "string: filter starts_with [true]" {
+  actual="$(printf '%s\n' hello_world | _filter starts_with hell)"
+  expected="$(printf '%s\n' 'hello_world')"
+  [ "$actual" == "$expected" ]
+}
+
+@test "string: filter starts_with [false]" {
+  actual="$(printf '%s\n' hello_world | _filter starts_with nope)"
+  expected="$(printf '%s\n' '')"
+  [ "$actual" == "$expected" ]
+}
+
+@test "string: filter ends_with [true]" {
+  actual="$(printf '%s\n' hello_world | _filter ends_with world)"
+  expected="$(printf '%s\n' 'hello_world')"
+  [ "$actual" == "$expected" ]
+}
+
+@test "string: filter ends_with [false]" {
+  actual="$(printf '%s\n' hello_world | _filter ends_with nope)"
+  expected="$(printf '%s\n' '')"
   [ "$actual" == "$expected" ]
 }

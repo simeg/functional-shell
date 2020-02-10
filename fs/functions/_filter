@@ -2,48 +2,45 @@
 
 set -e
 
-readonly allowed_fns=(
-  # arithmetic
-  even
-  odd
-
-  # comparison
-  eq
-  equal
-  ne
-  not_eq
-  not_equals
-  ge
-  greater_equals
-  gt
-  greater_than
-  le
-  less_equals
-  lt
-  less_than
-
-  # file_and_dir
-  is_dir
-  is_link
-  is_file
-  is_executable
-  exists
-  has_ext
-
-  # logical
-  non_empty
-
-  # other
-  id
-  identity
-
-  # string
-  contains
-  starts_with
-  ends_with
-)
-
 function _filter {
+  declare -a allowed_fns
+  allowed_fns=(
+    # arithmetic
+    even
+    odd
+
+    # comparison
+    eq
+    equal
+    ne
+    not_eq
+    not_equals
+    ge
+    greater_equals
+    gt
+    greater_than
+    le
+    less_equals
+    lt
+    less_than
+
+    # file_and_dir
+    is_dir
+    is_link
+    is_file
+    is_executable
+    exists
+    has_ext
+
+    # logical
+    non_empty
+
+    # string
+    contains
+    starts_with
+    ends_with
+  )
+
   local fn_arg="$1"
   shift
   local args="$*"
@@ -62,10 +59,10 @@ function _filter {
   local old_ifs=$IFS
   IFS=''
 
-  local res
+  local filter_res
   while read -r line; do
-    res=$(eval "$fn_arg" "'$line'" "'$args'")
-    if [ "$res" == "true" ]; then
+    filter_res=$(eval "$fn_arg" "'$line'" "'$args'")
+    if [ "$filter_res" == "true" ]; then
       printf "%s\n" "$line"
     fi
   done < /dev/stdin

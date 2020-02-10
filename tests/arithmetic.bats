@@ -38,3 +38,14 @@ load "fixture"
   [ "$actual" == "$result" ]
 }
 
+@test "arithmetic: filter even" {
+  actual="$(printf '%s\n' 1 2 3 4 | _filter even)"
+  result="$(printf '%s\n' 2 4)"
+  [ "$actual" == "$result" ]
+}
+
+@test "arithmetic: filter odd" {
+  actual="$(printf '%s\n' 1 2 3 4 | _filter odd)"
+  result="$(printf '%s\n' 1 3)"
+  [ "$actual" == "$result" ]
+}
