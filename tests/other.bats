@@ -8,4 +8,3 @@ load "fixture"
   [ "$actual" == "$result" ]
 }
 
-
