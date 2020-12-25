@@ -41,7 +41,7 @@ test:
 
 ### Python
 
-ci-py: install-py-deps local-install-travis it-test
+ci-py: install-py-deps local-install-ci it-test
 
 install-py-deps:
 	pip install -r tests/integration-tests/requirements.txt
@@ -49,7 +49,7 @@ install-py-deps:
 it-test:
 	pytest -s tests/integration-tests/tests.py
 
-local-install-travis:
+local-install-ci:
 	sudo cp -f ./map /usr/local/bin/
 	sudo cp -f ./filter /usr/local/bin/
 	sudo cp -rf ./fs /usr/local/lib/
