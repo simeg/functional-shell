@@ -1,4 +1,4 @@
-# functional-shell [![Build Status](https://travis-ci.org/simeg/functional-shell.svg)](https://travis-ci.org/simeg/functional-shell)
+# functional-shell ![CI](https://github.com/simeg/functional-shell/workflows/CI/badge.svg)
 
 Use `map` and `filter` in your shell.
 
