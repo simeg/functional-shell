@@ -10,14 +10,11 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install parallel  # Used in CI Bash
-      run: sudo apt-get install parallel
-
     - name: CI Bash
       run: make ci-bash
 
     - name: CI Python
       uses: actions/setup-python@v2
       with:
-        python-version: '3.x'
+        python-version: '3.9'
     - run: make ci-py
