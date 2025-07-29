@@ -18,7 +18,6 @@ def test_map__exits_w_code_1__when_no_function_provided():
     code, _, _ = run(["map"])
     assert code == 1
 
-@pytest.mark.skip(reason="Doesn't pass on CI for unknown reason")
 def test_map__exits_w_code_1__when_no_input():
     code, _, _ = run(["map", "add"])
     assert code == 1
@@ -37,7 +36,6 @@ def test_filter__exits_w_code_1__when_no_function_provided():
     code, _, _ = run(["filter"])
     assert code == 1
 
-@pytest.mark.skip(reason="Doesn't pass on CI for unknown reason")
 def test_filter__exits_w_code_1__when_no_input():
     code, _, _ = run(["filter", "is_file"])
     assert code == 1

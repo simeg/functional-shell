@@ -2,12 +2,25 @@
 
 set -eo pipefail
 
-source "/usr/local/lib/fs/functions/_filter"
+# Determine script location and set fs_dir
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+if [ -d "$script_dir/fs" ]; then
+    # Development mode - fs directory is relative to script
+    fs_dir="$script_dir/fs"
+elif [ -d "$HOME/.local/lib/fs" ]; then
+    # Local install mode - use ~/.local/lib/fs
+    fs_dir="$HOME/.local/lib/fs"
+else
+    # System install mode - use /usr/local/lib/fs
+    fs_dir="/usr/local/lib/fs"
+fi
 
-source "/usr/local/lib/fs/operations/arithmetic"
-source "/usr/local/lib/fs/operations/file_and_dir"
-source "/usr/local/lib/fs/operations/comparison"
-source "/usr/local/lib/fs/operations/string"
-source "/usr/local/lib/fs/operations/logical"
+source "$fs_dir/functions/_filter"
+
+source "$fs_dir/operations/arithmetic"
+source "$fs_dir/operations/file_and_dir"
+source "$fs_dir/operations/comparison"
+source "$fs_dir/operations/string"
+source "$fs_dir/operations/logical"
 
 _filter "$@"
