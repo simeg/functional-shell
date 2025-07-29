@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "functional-shell"
+version = "0.1.0"
+description = "Use map and filter in your shell"
+authors = ["Simon Egersand <s.egersand@gmail.com>"]
+readme = "README.md"
+packages = []
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.group.test.dependencies]
+pytest = "6.2.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

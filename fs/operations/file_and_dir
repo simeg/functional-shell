@@ -97,7 +97,11 @@ function has_ext {
     printf "%s\n" false
   else
     local has_ext
-    has_ext=$(test "$input" != "$actual_ext"; echo $?)
+    if test "$input" != "$actual_ext"; then
+      has_ext=0
+    else
+      has_ext=1
+    fi
     local has_same_ext
     has_same_ext=$(test "$actual_ext" == "$expected_ext"; echo $?)
 
