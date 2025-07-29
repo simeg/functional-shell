@@ -27,10 +27,17 @@ function _map {
   local old_ifs=$IFS
   IFS=''
 
+  local has_input=false
   while read -r line; do
+    has_input=true
     # Use safer function call instead of eval
     "$fn_arg" "$line" "$args"
   done < /dev/stdin
+
+  # If no input was provided, exit with 1
+  if [ "$has_input" = "false" ]; then
+    exit 1
+  fi
 
   IFS=$old_ifs
 }

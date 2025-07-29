@@ -59,8 +59,10 @@ function _filter {
   local old_ifs=$IFS
   IFS=''
 
+  local has_input=false
   local filter_res
   while read -r line; do
+    has_input=true
     # Use safer function call instead of eval
     if filter_res=$("$fn_arg" "$line" "$args"); then
       if [ "$filter_res" == "true" ]; then
@@ -68,6 +70,11 @@ function _filter {
       fi
     fi
   done < /dev/stdin
+
+  # If no input was provided, exit with 1
+  if [ "$has_input" = "false" ]; then
+    exit 1
+  fi
 
   IFS=$old_ifs
 }
