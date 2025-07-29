@@ -1,6 +1,8 @@
 name: CI
 
-on: push
+on:
+  push:
+  pull_request:
 
 jobs:
   ci:
@@ -8,13 +10,23 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - name: Install Poetry
+      run: |
+        curl -sSL https://install.python-poetry.org | python3 -
+        echo "$HOME/.local/bin" >> $GITHUB_PATH
+
+    - name: Setup Bats and bats libs
+      uses: bats-core/bats-action@3.0.0
 
     - name: CI Bash
       run: make ci-bash
 
-    - name: CI Python
-      uses: actions/setup-python@v2
+    - name: Set up Python
+      uses: actions/setup-python@v5
       with:
         python-version: '3.x'
-    - run: make ci-py
+    
+    - name: CI Python
+      run: make ci-py

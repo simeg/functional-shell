@@ -61,9 +61,11 @@ function _filter {
 
   local filter_res
   while read -r line; do
-    filter_res=$(eval "$fn_arg" "'$line'" "'$args'")
-    if [ "$filter_res" == "true" ]; then
-      printf "%s\n" "$line"
+    # Use safer function call instead of eval
+    if filter_res=$("$fn_arg" "$line" "$args"); then
+      if [ "$filter_res" == "true" ]; then
+        printf "%s\n" "$line"
+      fi
     fi
   done < /dev/stdin
 
