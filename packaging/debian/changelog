@@ -1,0 +1,19 @@
+functional-shell (1.0.0-1) unstable; urgency=medium
+
+  * Initial release of functional-shell
+  * Provides map and filter commands for functional programming in shell
+  * Includes 40+ operations for string, arithmetic, file, and comparison tasks
+  * Supports bash and zsh completion
+  * User-local installation by default
+  * Comprehensive documentation and examples
+
+ -- Simon Egersand <s.egersand@gmail.com>  $(date -R)
+
+functional-shell (0.9.0-1) unstable; urgency=low
+
+  * Pre-release version
+  * Basic map and filter functionality
+  * Core operation set implemented
+  * Initial packaging work
+
+ -- Simon Egersand <s.egersand@gmail.com>  $(date -R)

@@ -1,0 +1,28 @@
+Source: functional-shell
+Section: utils
+Priority: optional
+Maintainer: Simon Egersand <s.egersand@gmail.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.0
+Homepage: https://github.com/simeg/functional-shell
+Vcs-Git: https://github.com/simeg/functional-shell.git
+Vcs-Browser: https://github.com/simeg/functional-shell
+
+Package: functional-shell
+Architecture: all
+Depends: ${misc:Depends}, bash (>= 4.0)
+Suggests: bash-completion
+Description: Functional programming utilities for shell scripting
+ Functional Shell provides map and filter commands that bring functional
+ programming concepts to shell scripting. These utilities allow you to
+ transform and filter data streams using a wide range of operations.
+ .
+ Key features:
+  - map command for transforming data (string, arithmetic, file operations)
+  - filter command for selecting data based on conditions
+  - Extensive operation library (40+ operations)
+  - Chainable operations for complex data processing
+  - Shell completion support for bash and zsh
+ .
+ Common use cases include processing file lists, log analysis, data
+ transformation, and general shell pipeline enhancement.

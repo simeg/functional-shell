@@ -1,0 +1,126 @@
+#compdef map filter
+
+# Zsh completion for functional-shell (map and filter commands)
+
+_map_operations=(
+    # arithmetic
+    'add:Add number to input'
+    'sub:Subtract number from input'
+    'mul:Multiply input by number'
+    'pow:Raise input to power'
+    # comparison  
+    'eq:Test if input equals value'
+    'equal:Test if input equals value'
+    'ne:Test if input not equals value'
+    'not_eq:Test if input not equals value'
+    'not_equals:Test if input not equals value'
+    'ge:Test if input greater than or equal'
+    'greater_equals:Test if input greater than or equal'
+    'gt:Test if input greater than'
+    'greater_than:Test if input greater than'
+    'le:Test if input less than or equal'
+    'less_equals:Test if input less than or equal'
+    'lt:Test if input less than'
+    'less_than:Test if input less than'
+    # file_and_dir
+    'abspath:Get absolute path'
+    'dirname:Get directory name'
+    'basename:Get base name'
+    'is_dir:Test if is directory'
+    'is_file:Test if is file'
+    'is_link:Test if is symbolic link'
+    'is_executable:Test if is executable'
+    'exists:Test if path exists'
+    'has_ext:Test if has file extension'
+    'strip_ext:Remove file extension'
+    'replace_ext:Replace file extension'
+    'split_ext:Split filename and extension'
+    # logical
+    'non_empty:Test if input is non-empty'
+    # string
+    'reverse:Reverse string'
+    'append:Append text to string'
+    'strip:Strip whitespace'
+    'substr:Extract substring'
+    'take:Take first N characters'
+    'to_lower:Convert to lowercase'
+    'to_upper:Convert to uppercase'
+    'replace:Replace text in string'
+    'prepend:Prepend text to string'
+    'capitalize:Capitalize first letter'
+    'drop:Drop first N characters'
+    'duplicate:Duplicate string N times'
+    'contains:Test if string contains text'
+    'starts_with:Test if string starts with text'
+    'ends_with:Test if string ends with text'
+    'len:Get string length'
+    # other
+    'id:Identity function (no change)'
+    'identity:Identity function (no change)'
+)
+
+_filter_operations=(
+    # arithmetic
+    'even:Filter even numbers'
+    'odd:Filter odd numbers'
+    # comparison
+    'eq:Filter items equal to value'
+    'equal:Filter items equal to value'
+    'ne:Filter items not equal to value'
+    'not_eq:Filter items not equal to value'
+    'not_equals:Filter items not equal to value'
+    'ge:Filter items greater than or equal'
+    'greater_equals:Filter items greater than or equal'
+    'gt:Filter items greater than'
+    'greater_than:Filter items greater than'
+    'le:Filter items less than or equal'
+    'less_equals:Filter items less than or equal'
+    'lt:Filter items less than'
+    'less_than:Filter items less than'
+    # file_and_dir
+    'is_dir:Filter directories'
+    'is_link:Filter symbolic links'
+    'is_file:Filter regular files'
+    'is_executable:Filter executable files'
+    'exists:Filter existing paths'
+    'has_ext:Filter files with extension'
+    # logical
+    'non_empty:Filter non-empty items'
+    # string
+    'contains:Filter strings containing text'
+    'starts_with:Filter strings starting with text'
+    'ends_with:Filter strings ending with text'
+)
+
+_map() {
+    local context state line
+    _arguments -C \
+        '(--version -v)'{--version,-v}'[Show version information]' \
+        '--help[Show help information]' \
+        '1:operation:->operations' \
+        '*:arguments:_files'
+
+    case $state in
+        operations)
+            _describe 'map operations' _map_operations
+            ;;
+    esac
+}
+
+_filter() {
+    local context state line
+    _arguments -C \
+        '(--version -v)'{--version,-v}'[Show version information]' \
+        '--help[Show help information]' \
+        '1:operation:->operations' \
+        '*:arguments:_files'
+
+    case $state in
+        operations)
+            _describe 'filter operations' _filter_operations
+            ;;
+    esac
+}
+
+# Set up completion functions
+_map "$@"
