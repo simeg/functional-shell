@@ -14,7 +14,7 @@ export PATH="./cmd:$PATH"
 
 # Test data sizes
 SMALL_SIZE=1000
-MEDIUM_SIZE=5000
+# MEDIUM_SIZE=5000  # Unused variable - commenting out
 LARGE_SIZE=10000
 
 # Create test data
@@ -45,15 +45,19 @@ benchmark() {
     printf "%-35s" "$name:"
 
     local total_time=0
-    for i in $(seq 1 $iterations); do
-        local start_time=$(date +%s.%N)
+    for i in $(seq 1 "$iterations"); do
+        local start_time
+        start_time=$(date +%s.%N)
         eval "$command" < "$input_file" > /dev/null 2>&1
-        local end_time=$(date +%s.%N)
-        local duration=$(echo "$end_time - $start_time" | bc -l 2>/dev/null || echo "0.1")
+        local end_time
+        end_time=$(date +%s.%N)
+        local duration
+        duration=$(echo "$end_time - $start_time" | bc -l 2>/dev/null || echo "0.1")
         total_time=$(echo "$total_time + $duration" | bc -l 2>/dev/null || echo "$total_time")
     done
 
-    local avg_time=$(echo "scale=3; $total_time / $iterations" | bc -l 2>/dev/null || echo "N/A")
+    local avg_time
+    avg_time=$(echo "scale=3; $total_time / $iterations" | bc -l 2>/dev/null || echo "N/A")
     printf " %8ss\n" "$avg_time"
 }
 

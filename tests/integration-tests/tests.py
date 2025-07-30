@@ -30,7 +30,7 @@ def test_map__writes_to_stderr__when_non_matching_function():
                                 ">/dev/null"])
     assert code == 1
     assert stdout == ""
-    assert stderr == "non_matching_fn is not a valid function for map\n"
+    assert "Error: 'non_matching_fn' is not a valid operation for map" in stderr
 
 def test_filter__exits_w_code_1__when_no_function_provided():
     code, _, _ = run(["filter"])
@@ -45,5 +45,5 @@ def test_filter__writes_to_stderr__when_non_matching_function():
                                 ">/dev/null"])
     assert code == 1
     assert stdout == ""
-    assert stderr == "non_matching_fn is not a valid function for filter\n"
+    assert "Error: 'non_matching_fn' is not a valid operation for filter" in stderr
 
