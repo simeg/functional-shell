@@ -54,11 +54,50 @@ $ seq 3 | map add 100
 
 # Installation
 
-Run the `install.sh` to clone the repo and move the files to `/usr/local/lib`
-and `/usr/local/bin`.
+## Quick Install
+
+Install to your user directory (recommended):
 
 ```bash
-$ /bin/bash <(curl -s https://raw.githubusercontent.com/simeg/functional-shell/master/install.sh)
+/bin/bash <(curl -s https://raw.githubusercontent.com/simeg/functional-shell/master/install.sh)
+```
+
+This installs to `~/.local/bin` and `~/.local/lib/functional-shell`. Make sure `~/.local/bin` is in your PATH:
+
+```bash
+export PATH="$HOME/.local/bin:$PATH"
+```
+
+## Alternative Installation Methods
+
+**System-wide installation:**
+```bash
+curl -s https://raw.githubusercontent.com/simeg/functional-shell/master/install.sh | bash -s -- --system
+```
+
+**Custom prefix:**
+```bash
+curl -s https://raw.githubusercontent.com/simeg/functional-shell/master/install.sh | bash -s -- --prefix /usr/local
+```
+
+**Manual installation:**
+```bash
+git clone https://github.com/simeg/functional-shell.git
+cd functional-shell
+./install.sh --help  # See all options
+```
+
+## Shell Completion
+
+Tab completion is automatically installed and provides:
+- Operation suggestions: `map <TAB>` → shows available operations
+- Contextual help: Shows operation descriptions
+- Works with both bash and zsh
+
+## Uninstall
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/simeg/functional-shell/master/scripts/uninstall.sh | bash
 ```
 
 # Operations

@@ -122,5 +122,18 @@ _filter() {
     esac
 }
 
-# Set up completion functions
-_map "$@"
+# Main completion function that dispatches to specific functions
+_functional-shell() {
+    case "$words[1]" in
+        map)
+            _map
+            ;;
+        filter)
+            _filter
+            ;;
+    esac
+}
+
+# Register completion functions
+compdef _map map
+compdef _filter filter
