@@ -4,17 +4,13 @@ set -e
 
 function reverse {
   local value=$1
-  local reversed
-
-  reversed=$(printf "%s\n" "$value" | rev)
-  printf "%s\n" "$reversed"
+  echo "$value" | rev
 }
 
 function append {
   local value=$1
   local suffix=$2
-
-  printf "%s\n" "$value""$suffix"
+  echo "$value$suffix"
 }
 
 function strip {
@@ -54,14 +50,12 @@ function take {
 
 function to_lower {
   local value=$1
-
-  printf "%s\n" "$value" | tr '[:upper:]' '[:lower:]'
+  echo "$value" | tr '[:upper:]' '[:lower:]'
 }
 
 function to_upper {
   local value=$1
-
-  printf "%s\n" "$value" | tr '[:lower:]' '[:upper:]'
+  echo "$value" | tr '[:lower:]' '[:upper:]'
 }
 
 function replace {
@@ -117,9 +111,9 @@ function contains {
   local needle=$2
 
   if [[ $value == *"$needle"* ]]; then
-    printf "%s\n" true
+    echo true
   else
-    printf "%s\n" false
+    echo false
   fi
 }
 
@@ -147,8 +141,7 @@ function ends_with {
 
 function len {
   local value=$1
-
-  printf "%s\n" ${#value}
+  echo ${#value}
 }
 
 function length {

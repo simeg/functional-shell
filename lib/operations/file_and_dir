@@ -9,36 +9,13 @@ function abspath {
 
 function dirname {
   local input=$1
-  local full_path
-  full_path=$(realpath "$input")
-
-  local old_ifs=$IFS
-  IFS='/'
-
-  read -r -a str_arr <<< "$full_path"
-  local len="${#str_arr[@]}"
-  local idx=$((len - 2))
-
-  IFS=$old_ifs
-
-  printf "%s\n" "${str_arr["$idx"]}"
+  local dirname_path="${input%/*}"
+  echo "${dirname_path##*/}"
 }
 
 function basename {
   local input=$1
-  local full_path
-  full_path=$(realpath "$input")
-
-  local old_ifs=$IFS
-  IFS='/'
-
-  read -r -a str_arr <<< "$full_path"
-  local len="${#str_arr[@]}"
-  local idx=$((len - 1))
-
-  IFS=$old_ifs
-
-  printf "%s\n" "${str_arr["$idx"]}"
+  echo "${input##*/}"
 }
 
 function is_dir {

@@ -30,8 +30,8 @@ function _map {
   local has_input=false
   while read -r line; do
     has_input=true
-    # Use safer function call instead of eval
-    "$fn_arg" "$line" "$args"
+    # Use function call - this should not create subshells
+    "$fn_arg" "$line" $args
   done < /dev/stdin
 
   # If no input was provided, exit with 1

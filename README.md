@@ -174,3 +174,57 @@ id                  :: *      → *
 identity            :: *      → *
 ```
 
+# Performance
+
+Functional-shell has been optimized for performance with modern bash built-ins and minimal subprocess overhead.
+
+## Benchmark Testing
+
+Run the comprehensive performance benchmark:
+
+```bash
+./benchmark.sh
+```
+
+This script tests all operations across different categories and input sizes (1K-10K lines), providing:
+- Individual operation timing
+- Performance analysis by category
+- Input size scaling tests
+- Optimization recommendations
+
+## Performance Characteristics
+
+**Fast Operations** (~0.01-0.2s for 10K lines):
+- Arithmetic: `add`, `sub`, `mul` (bash built-in arithmetic)
+- File operations: `basename`, `dirname` (bash parameter expansion)
+- Simple operations: `id`, `len`, `append`, `prepend`
+
+**Medium Operations** (~0.5-2s for 10K lines):
+- String operations: `to_upper`, `to_lower`, `reverse` (using `tr`/`rev`)
+- Comparisons: `eq`, `gt`, `lt` variants
+
+**Slower Operations** (>2s for 10K lines):
+- Complex string operations: `substr`, `replace` (complex parsing)
+- File system checks: `is_file`, `exists` (system calls)
+- Mathematical: `pow` (computational complexity)
+
+## Optimization Notes
+
+- **Bash 3.2 Compatibility**: Uses `tr` for case conversion instead of `${var^^}` syntax
+- **Subprocess Minimization**: Operations use bash built-ins where possible
+- **Large Datasets**: For >50K lines, consider native tools like `awk`, `sed`, `tr`
+- **Filter vs Map**: Filter operations have slight overhead due to boolean result checking
+
+## Comparison with Native Tools
+
+For reference, native tools are typically faster for specialized tasks:
+```bash
+# For case conversion
+echo "text" | tr '[:lower:]' '[:upper:]'  # vs map to_upper
+
+# For filtering numbers
+seq 1 100 | awk 'NR % 2 == 0'           # vs filter even
+```
+
+Functional-shell provides a consistent, composable interface at the cost of some performance compared to specialized tools.
+

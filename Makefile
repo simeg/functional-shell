@@ -41,7 +41,7 @@ setup:
 
 # Run all Bats tests
 test:
-	bats -j 4 tests/
+	bats -j 8 tests/
 
 
 
