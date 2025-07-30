@@ -19,9 +19,56 @@ if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
     exit 0
 fi
 
+# Show help if requested
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    cat << 'EOF'
+filter - Filter lines based on predicate operations
+
+USAGE:
+    filter <operation> [args...]
+    filter --version
+    filter --help
+
+DESCRIPTION:
+    Reads lines from stdin and only outputs lines where the operation returns "true".
+    Filter operations are security-restricted to a predefined allowlist.
+
+EXAMPLES:
+    # Numeric filtering
+    seq 1 10 | filter even                     # 2, 4, 6, 8, 10
+    seq 1 100 | filter gt 50                   # Numbers > 50
+    
+    # String filtering  
+    ls | filter contains ".txt"                # Files with .txt
+    cat file.txt | filter non_empty            # Remove empty lines
+    
+    # File filtering
+    find . -type f | filter is_file            # Only regular files
+    ls -1 | filter exists                      # Only existing files
+    
+    # Combining with map
+    find . -name "*.log" | filter exists | map basename
+
+FILTER OPERATIONS:
+    Arithmetic: even, odd
+    Comparison: eq, ne, gt, lt, ge, le  
+    String:     contains, starts_with, ends_with
+    File:       is_file, is_dir, is_link, exists, has_ext
+    Logical:    non_empty
+
+SECURITY NOTE:
+    Filter operations are restricted to an allowlist for security.
+    Only predefined operations are available.
+
+See also: map(1)
+EOF
+    exit 0
+fi
+
 # Show usage if no arguments
 if [[ $# -eq 0 ]]; then
     echo "Usage: filter <operation> [args...]" >&2
+    echo "       filter --help" >&2
     echo "       filter --version" >&2
     exit 1
 fi

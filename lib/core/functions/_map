@@ -14,7 +14,16 @@ function _map {
   fi
 
   if [ "$(declare -f "$fn_arg" > /dev/null; echo $?)" -gt 0 ]; then
-    printf "%s %s\n" "$fn_arg" "is not a valid function for map" >&2
+    echo "Error: '$fn_arg' is not a valid operation for map" >&2
+    echo "" >&2
+    echo "Common operations:" >&2
+    echo "  Arithmetic: add, sub, mul, pow, even, odd" >&2
+    echo "  String:     to_upper, to_lower, reverse, append, prepend, len" >&2
+    echo "  File:       basename, dirname, abspath, strip_ext" >&2
+    echo "  Other:      id, identity" >&2
+    echo "" >&2
+    echo "For help: map --help" >&2
+    echo "For all operations, see the README" >&2
     exit 1
   fi
 
@@ -31,7 +40,7 @@ function _map {
   while read -r line; do
     has_input=true
     # Use function call - this should not create subshells
-    "$fn_arg" "$line" $args
+    "$fn_arg" "$line" "$args"
   done < /dev/stdin
 
   # If no input was provided, exit with 1

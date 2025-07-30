@@ -7,6 +7,10 @@ compatibility.*
 
 Tested with Zsh and Bash 3/4/5.
 
+**Quick Start:**
+- `map --help` and `filter --help` for usage and examples
+- See [COOKBOOK.md](COOKBOOK.md) for real-world examples and recipes
+
 ![Banner](banner.png)
 
 ---
@@ -97,7 +101,11 @@ Tab completion is automatically installed and provides:
 ## Uninstall
 
 ```bash
+# If installed via install.sh
 curl -fsSL https://raw.githubusercontent.com/simeg/functional-shell/master/scripts/uninstall.sh | bash
+
+# If installed from source
+make uninstall
 ```
 
 # Operations
@@ -183,6 +191,8 @@ Functional-shell has been optimized for performance with modern bash built-ins a
 Run the comprehensive performance benchmark:
 
 ```bash
+make benchmark
+# or
 ./benchmark.sh
 ```
 

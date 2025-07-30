@@ -46,7 +46,17 @@ function _filter {
   local args="$*"
 
   if [[ ! "${allowed_fns[*]}" == *"${fn_arg}"* ]]; then
-    printf "%s %s\n" "$fn_arg" "is not a valid function for filter" >&2
+    echo "Error: '$fn_arg' is not a valid operation for filter" >&2
+    echo "" >&2
+    echo "Available filter operations:" >&2
+    echo "  Arithmetic: even, odd" >&2
+    echo "  Comparison: eq, ne, gt, lt, ge, le" >&2
+    echo "  String:     contains, starts_with, ends_with" >&2
+    echo "  File:       is_file, is_dir, is_link, exists, has_ext" >&2
+    echo "  Logical:    non_empty" >&2
+    echo "" >&2
+    echo "For help: filter --help" >&2
+    echo "Note: Filter operations are restricted for security" >&2
     exit 1
   fi
 
@@ -64,7 +74,7 @@ function _filter {
   while read -r line; do
     has_input=true
     # Call function directly without subshell
-    filter_res=$($fn_arg "$line" $args)
+    filter_res=$($fn_arg "$line" "$args")
     if [ "$filter_res" == "true" ]; then
       printf "%s\n" "$line"
     fi

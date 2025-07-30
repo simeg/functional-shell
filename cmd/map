@@ -19,9 +19,54 @@ if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
     exit 0
 fi
 
+# Show help if requested
+if [[ "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+    cat << 'EOF'
+map - Apply operations to each line of input
+
+USAGE:
+    map <operation> [args...]
+    map --version
+    map --help
+
+DESCRIPTION:
+    Reads lines from stdin and applies the specified operation to each line.
+    Operations are organized by category: arithmetic, string, file, comparison, etc.
+
+EXAMPLES:
+    # String operations
+    echo "hello world" | map to_upper           # HELLO WORLD
+    ls | map append ".bak"                      # Add .bak to each filename
+    
+    # Arithmetic operations  
+    seq 1 5 | map add 10                       # Add 10 to each number
+    seq 1 10 | map mul 2                       # Multiply each by 2
+    
+    # File operations
+    find . -name "*.txt" | map basename         # Get just filenames
+    ls -1 | map abspath                         # Convert to absolute paths
+    
+    # Chaining with pipes
+    find . -name "*.log" | map basename | map to_upper
+
+COMMON OPERATIONS:
+    Arithmetic: add, sub, mul, pow, even, odd
+    String:     to_upper, to_lower, reverse, append, prepend, len
+    File:       basename, dirname, abspath, strip_ext
+    Other:      id, identity
+
+For complete list of operations, see the README or run:
+    map invalid_operation  # Shows available operations
+
+See also: filter(1)
+EOF
+    exit 0
+fi
+
 # Show usage if no arguments
 if [[ $# -eq 0 ]]; then
     echo "Usage: map <operation> [args...]" >&2
+    echo "       map --help" >&2
     echo "       map --version" >&2
     exit 1
 fi
