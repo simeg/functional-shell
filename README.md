@@ -7,6 +7,10 @@ compatibility.*
 
 Tested with Zsh and Bash 3/4/5.
 
+![Banner](banner.png)
+
+---
+
 # Examples
 
 ```bash
