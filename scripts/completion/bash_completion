@@ -1,0 +1,100 @@
+# Bash completion for functional-shell (map and filter commands)
+
+_map_operations() {
+    local operations=(
+        # arithmetic
+        "add" "sub" "mul" "pow"
+        # comparison  
+        "eq" "equal" "ne" "not_eq" "not_equals" "ge" "greater_equals" 
+        "gt" "greater_than" "le" "less_equals" "lt" "less_than"
+        # file_and_dir
+        "abspath" "dirname" "basename" "is_dir" "is_file" "is_link" 
+        "is_executable" "exists" "has_ext" "strip_ext" "replace_ext" "split_ext"
+        # logical
+        "non_empty"
+        # string
+        "reverse" "append" "strip" "substr" "take" "to_lower" "to_upper" 
+        "replace" "prepend" "capitalize" "drop" "duplicate" "contains" 
+        "starts_with" "ends_with" "len"
+        # other
+        "id" "identity"
+    )
+    echo "${operations[@]}"
+}
+
+_filter_operations() {
+    local operations=(
+        # arithmetic
+        "even" "odd"
+        # comparison
+        "eq" "equal" "ne" "not_eq" "not_equals" "ge" "greater_equals"
+        "gt" "greater_than" "le" "less_equals" "lt" "less_than"
+        # file_and_dir
+        "is_dir" "is_link" "is_file" "is_executable" "exists" "has_ext"
+        # logical
+        "non_empty"
+        # string
+        "contains" "starts_with" "ends_with"
+    )
+    echo "${operations[@]}"
+}
+
+_map_complete() {
+    local cur prev words cword
+    _init_completion || return
+
+    case $prev in
+        map)
+            COMPREPLY=($(compgen -W "$(_map_operations) --version --help" -- "$cur"))
+            return
+            ;;
+        --*)
+            return
+            ;;
+    esac
+
+    # For operations that take arguments, provide basic completion
+    case ${words[1]} in
+        add|sub|mul|pow|eq|ne|gt|lt|ge|le|take|drop|substr|replace|append|prepend|contains|starts_with|ends_with|has_ext|replace_ext)
+            # These operations typically take numeric or string arguments
+            # Don't provide specific completions, let user type freely
+            return
+            ;;
+        *)
+            # For other cases, complete with operations
+            COMPREPLY=($(compgen -W "$(_map_operations)" -- "$cur"))
+            ;;
+    esac
+}
+
+_filter_complete() {
+    local cur prev words cword
+    _init_completion || return
+
+    case $prev in
+        filter)
+            COMPREPLY=($(compgen -W "$(_filter_operations) --version --help" -- "$cur"))
+            return
+            ;;
+        --*)
+            return
+            ;;
+    esac
+
+    # For operations that take arguments, provide basic completion
+    case ${words[1]} in
+        eq|ne|gt|lt|ge|le|contains|starts_with|ends_with|has_ext)
+            # These operations typically take arguments
+            # Don't provide specific completions, let user type freely
+            return
+            ;;
+        *)
+            # For other cases, complete with operations
+            COMPREPLY=($(compgen -W "$(_filter_operations)" -- "$cur"))
+            ;;
+    esac
+}
+
+# Register completions
+complete -F _map_complete map
+complete -F _filter_complete filter

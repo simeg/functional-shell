@@ -1,12 +1,12 @@
 #!/usr/bin/env bats
 
-source "fs/functions/_filter"
-source "fs/functions/_map"
+source "lib/core/functions/_filter"
+source "lib/core/functions/_map"
 
-source "fs/operations/arithmetic"
-source "fs/operations/comparison"
-source "fs/operations/file_and_dir"
-source "fs/operations/logical"
-source "fs/operations/other"
-source "fs/operations/string"
+source "lib/operations/arithmetic"
+source "lib/operations/comparison"
+source "lib/operations/file_and_dir"
+source "lib/operations/logical"
+source "lib/operations/other"
+source "lib/operations/string"
 

@@ -28,19 +28,31 @@ install_symlinks() {
     mkdir -p "$bin_dir" "$lib_dir"
     
     # Create symlinks for executables
-    ln -sf "$script_dir/map" "$bin_dir/map"
-    ln -sf "$script_dir/filter" "$bin_dir/filter"
+    ln -sf "$script_dir/cmd/map" "$bin_dir/map"
+    ln -sf "$script_dir/cmd/filter" "$bin_dir/filter"
     
     # Create symlink for operations library
-    ln -sf "$script_dir/fs" "$lib_dir/fs"
+    ln -sf "$script_dir/lib" "$lib_dir/functional-shell"
+    
+    # Install shell completions for development
+    completion_dir="$HOME/.local/share/bash-completion/completions"
+    zsh_completion_dir="$HOME/.local/share/zsh/site-functions"
+    
+    mkdir -p "$completion_dir" "$zsh_completion_dir"
+    ln -sf "$script_dir/scripts/completion/bash_completion" "$completion_dir/functional-shell"
+    ln -sf "$script_dir/scripts/completion/zsh_completion" "$zsh_completion_dir/_functional-shell"
     
     echo "-- Symlinks created:"
-    echo "   $bin_dir/map -> $script_dir/map"
-    echo "   $bin_dir/filter -> $script_dir/filter"
-    echo "   $lib_dir/fs -> $script_dir/fs"
+    echo "   $bin_dir/map -> $script_dir/cmd/map"
+    echo "   $bin_dir/filter -> $script_dir/cmd/filter"
+    echo "   $lib_dir/functional-shell -> $script_dir/lib"
+    echo "   $completion_dir/functional-shell -> $script_dir/scripts/completion/bash_completion"
+    echo "   $zsh_completion_dir/_functional-shell -> $script_dir/scripts/completion/zsh_completion"
     echo ""
     echo "-- Make sure $bin_dir is in your PATH:"
     echo "   export PATH=\"\$HOME/.local/bin:\$PATH\""
+    echo ""
+    echo "-- Shell completion available after restarting your shell"
 }
 
 uninstall_symlinks() {
@@ -49,7 +61,13 @@ uninstall_symlinks() {
     # Remove symlinks if they exist
     [ -L "$bin_dir/map" ] && rm "$bin_dir/map" && echo "   Removed $bin_dir/map"
     [ -L "$bin_dir/filter" ] && rm "$bin_dir/filter" && echo "   Removed $bin_dir/filter"
-    [ -L "$lib_dir/fs" ] && rm "$lib_dir/fs" && echo "   Removed $lib_dir/fs"
+    [ -L "$lib_dir/functional-shell" ] && rm "$lib_dir/functional-shell" && echo "   Removed $lib_dir/functional-shell"
+    
+    # Remove completion symlinks
+    completion_dir="$HOME/.local/share/bash-completion/completions"
+    zsh_completion_dir="$HOME/.local/share/zsh/site-functions"
+    [ -L "$completion_dir/functional-shell" ] && rm "$completion_dir/functional-shell" && echo "   Removed $completion_dir/functional-shell"
+    [ -L "$zsh_completion_dir/_functional-shell" ] && rm "$zsh_completion_dir/_functional-shell" && echo "   Removed $zsh_completion_dir/_functional-shell"
     
     echo "-- Symlinks removed"
 }

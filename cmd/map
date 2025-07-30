@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+
+set -eo pipefail
+
+# Version handling
+if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
+    script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+    if [ -f "$script_dir/../VERSION" ]; then
+        echo "map $(cat "$script_dir/../VERSION")"
+    else
+        echo "map (unknown version)"
+    fi
+    exit 0
+fi
+
+# Show usage if no arguments
+if [[ $# -eq 0 ]]; then
+    echo "Usage: map <operation> [args...]" >&2
+    echo "       map --version" >&2
+    exit 1
+fi
+
+# Determine script location and set lib_dir
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# Check if this is a symlinked executable and resolve the real location
+if [ -L "${BASH_SOURCE[0]}" ]; then
+    real_script="$(readlink "${BASH_SOURCE[0]}")"
+    if [[ "$real_script" = /* ]]; then
+        # Absolute path
+        real_script_dir="$(cd "$(dirname "$real_script")" && pwd)"
+    else
+        # Relative path
+        real_script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")/$(dirname "$real_script")" && pwd)"
+    fi
+    
+    # Check if lib directory exists relative to real script location
+    if [ -d "$real_script_dir/../lib" ]; then
+        lib_dir="$real_script_dir/../lib"
+    fi
+fi
+
+# Fallback location checks
+if [ -z "${lib_dir:-}" ]; then
+    if [ -d "$script_dir/../lib" ]; then
+        # Development mode - lib directory is relative to script
+        lib_dir="$script_dir/../lib"
+    elif [ -d "$HOME/.local/lib/functional-shell" ]; then
+        # Local install mode - use ~/.local/lib/functional-shell
+        lib_dir="$HOME/.local/lib/functional-shell"
+    else
+        # System install mode - use /usr/local/lib/functional-shell
+        lib_dir="/usr/local/lib/functional-shell"
+    fi
+fi
+
+source "$lib_dir/core/functions/_map"
+
+source "$lib_dir/operations/arithmetic"
+source "$lib_dir/operations/file_and_dir"
+source "$lib_dir/operations/comparison"
+source "$lib_dir/operations/string"
+source "$lib_dir/operations/other"
+
+_map "$@"
