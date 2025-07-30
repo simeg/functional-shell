@@ -5,11 +5,17 @@ set -eo pipefail
 # Version handling
 if [[ "${1:-}" == "--version" || "${1:-}" == "-v" ]]; then
     script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-    if [ -f "$script_dir/../VERSION" ]; then
-        echo "filter $(cat "$script_dir/../VERSION")"
-    else
-        echo "filter (unknown version)"
-    fi
+    # Try different VERSION file locations
+    for version_file in \
+        "$script_dir/../VERSION" \
+        "$HOME/.local/lib/functional-shell/VERSION" \
+        "/usr/local/lib/functional-shell/VERSION"; do
+        if [ -f "$version_file" ]; then
+            echo "filter $(cat "$version_file")"
+            exit 0
+        fi
+    done
+    echo "filter (unknown version)"
     exit 0
 fi
 
@@ -42,7 +48,7 @@ fi
 
 # Fallback location checks
 if [ -z "${lib_dir:-}" ]; then
-    if [ -d "$script_dir/../lib" ]; then
+    if [ -f "$script_dir/../lib/core/functions/_filter" ]; then
         # Development mode - lib directory is relative to script
         lib_dir="$script_dir/../lib"
     elif [ -d "$HOME/.local/lib/functional-shell" ]; then

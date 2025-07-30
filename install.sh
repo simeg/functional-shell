@@ -82,30 +82,22 @@ echo "-- Installing to $install_bin_dir and $install_lib_dir..."
 # Create directories
 ${USE_SUDO} mkdir -p "$install_bin_dir" "$install_lib_dir"
 
-# Install executables (handle both old and new structure)
-if [ -f "${tmp_dir}/cmd/map" ]; then
-    # New structure
-    ${USE_SUDO} cp -f "${tmp_dir}/cmd/map" "$install_bin_dir/"
-    ${USE_SUDO} cp -f "${tmp_dir}/cmd/filter" "$install_bin_dir/"
-else
-    # Old structure (fallback for existing remote repo)
-    ${USE_SUDO} cp -f "${tmp_dir}/map" "$install_bin_dir/"
-    ${USE_SUDO} cp -f "${tmp_dir}/filter" "$install_bin_dir/"
+# Install executables
+${USE_SUDO} cp -f "${tmp_dir}/cmd/map" "$install_bin_dir/"
+${USE_SUDO} cp -f "${tmp_dir}/cmd/filter" "$install_bin_dir/"
+
+# Install VERSION file for version detection
+if [ -f "${tmp_dir}/VERSION" ]; then
+    ${USE_SUDO} cp -f "${tmp_dir}/VERSION" "$install_lib_dir/"
 fi
 
-# Install libraries (handle both old and new structure)
-if [ -d "${tmp_dir}/lib" ]; then
-    # New structure
-    ${USE_SUDO} cp -rf "${tmp_dir}/lib/"* "$install_lib_dir/"
-else
-    # Old structure (fallback for existing remote repo)
-    ${USE_SUDO} cp -rf "${tmp_dir}/fs" "$install_lib_dir/"
-fi
+# Install libraries
+${USE_SUDO} cp -rf "${tmp_dir}/lib/core" "${tmp_dir}/lib/operations" "$install_lib_dir/"
 
 # Install shell completions
 install_completions() {
     echo "-- Installing shell completions..."
-    
+
     # Determine completion directories
     if [[ "$install_bin_dir" == "$HOME/.local/bin" ]]; then
         # User-local completion directories
@@ -116,22 +108,16 @@ install_completions() {
         bash_completion_dir="/usr/share/bash-completion/completions"
         zsh_completion_dir="/usr/share/zsh/site-functions"
     fi
-    
-    # Install bash completion (handle both old and new structure)
-    if [[ -f "${tmp_dir}/scripts/completion/bash_completion" ]]; then
-        ${USE_SUDO} mkdir -p "$bash_completion_dir"
-        ${USE_SUDO} cp "${tmp_dir}/scripts/completion/bash_completion" "$bash_completion_dir/functional-shell"
-        echo "   Installed bash completion to $bash_completion_dir/functional-shell"
-    else
-        echo "   Shell completion not available in this version"
-    fi
-    
-    # Install zsh completion (handle both old and new structure)  
-    if [[ -f "${tmp_dir}/scripts/completion/zsh_completion" ]]; then
-        ${USE_SUDO} mkdir -p "$zsh_completion_dir"
-        ${USE_SUDO} cp "${tmp_dir}/scripts/completion/zsh_completion" "$zsh_completion_dir/_functional-shell"
-        echo "   Installed zsh completion to $zsh_completion_dir/_functional-shell"
-    fi
+
+    # Install bash completion
+    ${USE_SUDO} mkdir -p "$bash_completion_dir"
+    ${USE_SUDO} cp "${tmp_dir}/scripts/completion/bash_completion" "$bash_completion_dir/functional-shell"
+    echo "   Installed bash completion to $bash_completion_dir/functional-shell"
+
+    # Install zsh completion
+    ${USE_SUDO} mkdir -p "$zsh_completion_dir"
+    ${USE_SUDO} cp "${tmp_dir}/scripts/completion/zsh_completion" "$zsh_completion_dir/_functional-shell"
+    echo "   Installed zsh completion to $zsh_completion_dir/_functional-shell"
 }
 
 install_completions
@@ -148,17 +134,12 @@ LIB_DIR=$install_lib_dir
 # Installed files:
 $install_bin_dir/map
 $install_bin_dir/filter
+$install_lib_dir/VERSION
 EOF
 
     # Add all library files to manifest
-    if [ -d "${tmp_dir}/lib" ]; then
-        # New structure
-        find "${tmp_dir}/lib" -type f | sed "s|${tmp_dir}/lib|$install_lib_dir|" >> "${tmp_dir}/install_manifest"
-    else
-        # Old structure  
-        find "${tmp_dir}/fs" -type f | sed "s|${tmp_dir}/fs|$install_lib_dir|" >> "${tmp_dir}/install_manifest"
-    fi
-    
+    find "${tmp_dir}/lib/core" "${tmp_dir}/lib/operations" -type f | sed "s|${tmp_dir}/lib|$install_lib_dir|" >> "${tmp_dir}/install_manifest"
+
     # Add completion files to manifest
     if [[ "$install_bin_dir" == "$HOME/.local/bin" ]]; then
         echo "$HOME/.local/share/bash-completion/completions/functional-shell" >> "${tmp_dir}/install_manifest"
